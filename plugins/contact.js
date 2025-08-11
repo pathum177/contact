@@ -17,7 +17,20 @@ cmd({
     const ownerDescription = "⚡ WhatsApp Bot Developer\n📌 LUXALGO BOT Owner\n📱 Contact for projects!"
     const ownerImage = "https://files.catbox.moe/joo2gt.jpg" // photo URL
 
-    reply(📤 Sending info to ${participants.length} members...)
+    reply(`📤 Sending info to ${participants.length} members...`)
+
+    const messageTemplate = (name, number, desc) => `╔══❖•ೋ° °ೋ•❖══╗
+🌟 *LUXALGO BROADCAST SYSTEM* 🌟
+╚══❖•ೋ° °ೋ•❖══╝
+
+👤 *Name:* ${name}
+📞 *Number:* wa.me/${number}
+
+${desc}
+
+━━━━━━━━━━━━━━━
+💬 _Message sent via automated bot_ 
+`
 
     for (let member of participants) {
         if (member.id.endsWith("@g.us")) continue // skip groups
@@ -26,17 +39,10 @@ cmd({
         try {
             await conn.sendMessage(member.id, {
                 image: { url: ownerImage },
-                caption: ╔══❖•ೋ° °ೋ•❖══╗
-   🌟 *LUXALGO BROADCAST SYSTEM* 🌟
-╚══❖•ೋ° °ೋ•❖══╝
-
-👤 *Name:* ${ownerName}
-📞 *Number:* wa.me/${ownerNumber}
-
-${ownerDescription}
+                caption: messageTemplate(ownerName, ownerNumber, ownerDescription)
             })
         } catch (e) {
-            console.log(❌ Failed to send to ${member.id}, e)
+            console.log(`❌ Failed to send to ${member.id}`, e)
         }
         await new Promise(r => setTimeout(r, 500)) // delay to avoid block
     }
