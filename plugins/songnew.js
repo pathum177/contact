@@ -6,7 +6,7 @@ const fetch = require('node-fetch');
 const songCache = {}; // Store session for user
 
 cmd({
-    pattern: "song",
+    pattern: "song5",
     react: "🎶",
     desc: "Download MP3 from YouTube",
     category: "main",
