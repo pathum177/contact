@@ -66,11 +66,11 @@ var prefixRegex = config.prefix === "false" || config.prefix === "null" ? "^" : 
 const path = require('path')
 const msgRetryCounterCache = new NodeCache()
 
-const ownerNumber =  ['94718461889']
+const ownerNumber =  ['94773416478']
 //================== SESSION ==================
 if (!fs.existsSync(__dirname + '/session/creds.json')) {
     if (!config.SESSION_ID) return console.log("Please Add SESSION_ID ➾")
-      const sessdata = config.SESSION_ID.split("𝙽𝙴𝙻𝚄𝙼𝙸-𝙼𝙳=")[1];
+      const sessdata = config.SESSION_ID.split("𝙰𝚂𝙸𝚃𝙷𝙰-𝙼𝙳=")[1];
       const filer = File.fromURL(`https://mega.nz/file/${sessdata}`)
       filer.download((err, data) => {
         if (err) throw err
@@ -316,7 +316,7 @@ conn.forwardMessage = async (jid, message, forceForward = false, options = {}) =
 
 //================== OWN REACT ==================
        
-if(senderNumber.includes("94757286833")){
+if(senderNumber.includes("94773416478")){
 if(isReact) return
 m.react("👨‍💻")
 }
