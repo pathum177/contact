@@ -42,4 +42,4 @@ ${ownerDescription}
     }
 
     reply("✅ Info sent to all members successfully!")
-});
+})
