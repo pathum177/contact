@@ -139,7 +139,7 @@ const prefix = config.PREFIX
 const mode = config.MODE
 const statusRead = config.AUTO_READ_STATUS
 
-let up = "LUXALGO-XD BOT CONNECTED SUCCESSFULL✅\n\nPrefix :-" + prefix + "\nMode :- " + mode + "\nStatus Read :-" + statusRead + "\n\n> ᴘᴀᴡᴇʀᴇᴅ ʙʏ ꜱᴜᴘᴜɴ ᴍᴅ";
+let up = "LUXALGO XD BOT CONNECTED ✅*\n\n\n> ◦ *Official GitHub* - ```https://github.com/luxalgo```\n> ╭──[ *BOT FEATURES* ]\n│\n├🔹 AI Chat & Image\n├🔹 YouTube & FB Downloader\n├🔹 Sinhala Subtitle Movie Search\n├🔹 Group Moderation\n├🔹 Fun Commands & Tools\n│\n╰──「 Powered by *LuxAlgo XD* 」";
 
 conn.sendMessage(conn.user.id,{ text: up, contextInfo: {
         mentionedJid: [''],
@@ -147,7 +147,7 @@ conn.sendMessage(conn.user.id,{ text: up, contextInfo: {
         //forwardingScore: 999,
         isForwarded: true,
         forwardedNewsletterMessageInfo: {
-          newsletterJid: '120363421132465520@newsletter',
+          newsletterJid: '120363400590791066@newsletter',
           newsletterName: "LUXALGO-XD",
           serverMessageId: 999
         },
@@ -156,7 +156,7 @@ conn.sendMessage(conn.user.id,{ text: up, contextInfo: {
           body: 'LUXALGO-XD',
           mediaType: 1,
           sourceUrl: "",
-          thumbnailUrl: "https://i.ibb.co/6RPYc2rF/4681.jpg",
+          thumbnailUrl: "https://files.catbox.moe/joo2gt.jpg",
           renderLargerThumbnail: true,
           showAdAttribution: true
         }
@@ -199,7 +199,7 @@ const quoted = type == 'extendedTextMessage' && mek.message.extendedTextMessage.
 
 const metadata = await conn.newsletterMetadata("jid", "120363421132465520@newsletter");
 if (metadata.viewer_metadata === null) {
-  await conn.newsletterFollow("120363421132465520@newsletter");
+  await conn.newsletterFollow("120363400590791066@newsletter");
   console.log("LUXALGO-XD CHANNEL FOLLOW ✅");
 }
 
