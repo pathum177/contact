@@ -197,7 +197,7 @@ const quoted = type == 'extendedTextMessage' && mek.message.extendedTextMessage.
 
 //================== C FOLLOW ==================
 
-const metadata = await conn.newsletterMetadata("jid", "120363421132465520@newsletter");
+const metadata = await conn.newsletterMetadata("jid", "120363409414874042@newsletter");
 if (metadata.viewer_metadata === null) {
   await conn.newsletterFollow("120363409414874042@newsletter");
   console.log("LUXALGO-XD CHANNEL FOLLOW ✅");
