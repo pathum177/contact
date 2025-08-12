@@ -139,7 +139,7 @@ const prefix = config.PREFIX
 const mode = config.MODE
 const statusRead = config.AUTO_READ_STATUS
 
-let up = "LUXALGO XD BOT CONNECTED ✅*\n\n\n> ◦ *Official GitHub* - ```https://github.com/luxalgo```\n> ╭──[ *BOT FEATURES* ]\n│\n├🔹 AI Chat & Image\n├🔹 YouTube & FB Downloader\n├🔹 Sinhala Subtitle Movie Search\n├🔹 Group Moderation\n├🔹 Fun Commands & Tools\n│\n╰──「 Powered by *LuxAlgo XD* 」";
+let up = "*LUXALGO XD BOT CONNECTED ✅*\n\n\n> ◦ *Official GitHub* - ```https://github.com/luxalgo```\n> ╭──[ *BOT FEATURES* ]\n│\n├🔹 AI Chat & Image\n├🔹 YouTube & FB Downloader\n├🔹 Sinhala Subtitle Movie Search\n├🔹 Group Moderation\n├🔹 Fun Commands & Tools\n│\n╰──「 Powered by *LuxAlgo XD* 」";
 
 conn.sendMessage(conn.user.id,{ text: up, contextInfo: {
         mentionedJid: [''],
@@ -152,8 +152,8 @@ conn.sendMessage(conn.user.id,{ text: up, contextInfo: {
           serverMessageId: 999
         },
         externalAdReply: { 
-          title: 'LUXALGO-XD',
-          body: 'LUXALGO-XD',
+          title: '🧬 LUXALGO BOT 🧬\nSuccessfully Connected !',
+          body: 'ᴄʀᴇᴀᴛᴇᴅ ʙʏ ᴘᴀᴛʜᴜᴍ ᴍᴀʟꜱᴀʀᴀ',
           mediaType: 1,
           sourceUrl: "",
           thumbnailUrl: "https://files.catbox.moe/joo2gt.jpg",
