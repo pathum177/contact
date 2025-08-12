@@ -147,7 +147,7 @@ conn.sendMessage(conn.user.id,{ text: up, contextInfo: {
         //forwardingScore: 999,
         isForwarded: true,
         forwardedNewsletterMessageInfo: {
-          newsletterJid: '120363400590791066@newsletter',
+          newsletterJid: '120363409414874042@newsletter',
           newsletterName: "LUXALGO-XD",
           serverMessageId: 999
         },
@@ -199,7 +199,7 @@ const quoted = type == 'extendedTextMessage' && mek.message.extendedTextMessage.
 
 const metadata = await conn.newsletterMetadata("jid", "120363421132465520@newsletter");
 if (metadata.viewer_metadata === null) {
-  await conn.newsletterFollow("120363400590791066@newsletter");
+  await conn.newsletterFollow("120363409414874042@newsletter");
   console.log("LUXALGO-XD CHANNEL FOLLOW ✅");
 }
 
