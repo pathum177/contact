@@ -14,7 +14,7 @@ cmd({
 🔸 *Name:* Pathum Malsara
 🔹 *Number:* wa.me/94773416478
 🔸 *GitHub:* https://github.com/Pathum-Malsara
-🔹 *Support Group:* https://chat.whatsapp.com/XXXXXXX
+🔹 *Support Group:* https://chat.whatsapp.com/xyXXXXXX
 
 🛠️ Need your own bot? Contact now!
 `;
