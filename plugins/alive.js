@@ -28,7 +28,7 @@ async (conn, mek, m, { from, quoted, body, isCmd, command, args, q, isGroup, sen
 > © ᴄʀᴇᴀᴛᴇᴅ ʙʏ ᴘᴀᴛʜᴜᴍ ᴍᴀʟꜱᴀʀᴀ`;
 
         // Buttons
-        const buttons = [
+        let buttons = [
             { buttonId: `.owner`, buttonText: { displayText: ' OWNER👨‍💻' }, type: 1 },
             { buttonId: `.ping`, buttonText: { displayText: 'PING📡' }, type: 1 }
         ];
