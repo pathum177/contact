@@ -1,4 +1,4 @@
-const config = require('../lib/settings')
+const config = require('../settings')
 const {cmd , commands} = require('../lib/command')
 const getFBInfo = require("@xaviabot/fb-downloader");
 
