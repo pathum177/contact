@@ -88,7 +88,7 @@ const app = express();
 const port = process.env.PORT || 9000;
 
 async function connectToWA() {;
-	console.log("Connecting QUEEN-NELUMI-MD 💗");
+	console.log("Connecting LUXALGO-XD 🔃");
     const {
         version,
         isLatest
@@ -122,14 +122,14 @@ async function connectToWA() {;
             }
         } else if (connection === 'open') {
 
-            console.log('Installing plugins 😌... ')
+            console.log('Installing plugins 🧬... ')
             const path = require('path');
             fs.readdirSync("./plugins/").forEach((plugin) => {
                 if (path.extname(plugin).toLowerCase() == ".js") {
                     require("./plugins/" + plugin);
                 }
             });
-            console.log('QUEEN-NELUMI-MD Plugins installed 🤭💗')
+            console.log('LUXALGO-XD Plugins installed 📂')
             console.log(' Bot connected ✅')
 	 
 
@@ -139,7 +139,7 @@ const prefix = config.PREFIX
 const mode = config.MODE
 const statusRead = config.AUTO_READ_STATUS
 
-let up = "QUEEN-NELUMI-MD BOT CONNECTED SUCCESSFULL\n\nPrefix :-" + prefix + "\nMode :- " + mode + "\nStatus Read :-" + statusRead + "\n\n> ᴘᴀᴡᴇʀᴇᴅ ʙʏ ꜱᴜᴘᴜɴ ᴍᴅ";
+let up = "LUXALGO-XD BOT CONNECTED SUCCESSFULL✅\n\nPrefix :-" + prefix + "\nMode :- " + mode + "\nStatus Read :-" + statusRead + "\n\n> ᴘᴀᴡᴇʀᴇᴅ ʙʏ ꜱᴜᴘᴜɴ ᴍᴅ";
 
 conn.sendMessage(conn.user.id,{ text: up, contextInfo: {
         mentionedJid: [''],
@@ -148,12 +148,12 @@ conn.sendMessage(conn.user.id,{ text: up, contextInfo: {
         isForwarded: true,
         forwardedNewsletterMessageInfo: {
           newsletterJid: '120363421132465520@newsletter',
-          newsletterName: "QUEEN-NELUMI-MD",
+          newsletterName: "LUXALGO-XD",
           serverMessageId: 999
         },
         externalAdReply: { 
-          title: 'QUEEN-NELUMI-MD',
-          body: 'QUEEN-NELUMI-MD',
+          title: 'LUXALGO-XD',
+          body: 'LUXALGO-XD',
           mediaType: 1,
           sourceUrl: "",
           thumbnailUrl: "https://i.ibb.co/6RPYc2rF/4681.jpg",
@@ -182,7 +182,7 @@ mek.message = (getContentType(mek.message) === 'ephemeralMessage') ? mek.message
 if (mek.key && mek.key.remoteJid === 'status@broadcast' && config.AUTO_READ_STATUS === "true"){
 await conn.readMessages([mek.key])  
 const mnyako = await jidNormalizedUser(conn.user.id)
-await conn.sendMessage(mek.key.remoteJid, { react: { key: mek.key, text: 'බලලම එපා වෙනෝ 🤧'}}, { statusJidList: [mek.key.participant, mnyako] })
+await conn.sendMessage(mek.key.remoteJid, { react: { key: mek.key, text: 'status seen🎉'}}, { statusJidList: [mek.key.participant, mnyako] })
 }	      
 	    if (mek.key && mek.key.remoteJid === 'status@broadcast') return
             const m = sms(conn, mek)
@@ -200,7 +200,7 @@ const quoted = type == 'extendedTextMessage' && mek.message.extendedTextMessage.
 const metadata = await conn.newsletterMetadata("jid", "120363421132465520@newsletter");
 if (metadata.viewer_metadata === null) {
   await conn.newsletterFollow("120363421132465520@newsletter");
-  console.log("QUEEN-NELUMI-MD CHANNEL FOLLOW ✅");
+  console.log("LUXALGO-XD CHANNEL FOLLOW ✅");
 }
 
 
@@ -217,10 +217,10 @@ const body = (type === 'conversation') ? mek.message.conversation : (type === 'e
             const sender = mek.key.fromMe ? (conn.user.id.split(':')[0] + '@s.whatsapp.net' || conn.user.id) : (mek.key.participant || mek.key.remoteJid)
             const senderNumber = sender.split('@')[0]
             const botNumber = conn.user.id.split(':')[0]
-            const pushname = mek.pushName || 'SUPUN MD'
+            const pushname = mek.pushName || 'LUXALGO'
 	          const ownbot = config.SUDO
 	          const isownbot = ownbot?.includes(senderNumber)
-	          const developers = '94718461889'
+	          const developers = '94773416478'
             const isbot = botNumber.includes(senderNumber)
 	          const isdev = developers.includes(senderNumber) 	    
 	          const botNumber2 = await jidNormalizedUser(conn.user.id)
@@ -390,9 +390,9 @@ events.commands.map(async (command) => {
     })
 }
 app.get("/", (req, res) => {
-res.send("QUEEN-NELUMI-MD CONNECTED SUCCESSFUL💔🪄");
+res.send("LUXALGO-XD CONNECTED SUCCESSFUL✅");
 });
-app.listen(port, () => console.log(`QUEEN-NELUMI-MD Server listening on port http://localhost:` + port));
+app.listen(port, () => console.log(`LUXALGO-XD Server listening on port http://localhost:` + port));
 setTimeout(() => {
 connectToWA()
 }, 9000);
