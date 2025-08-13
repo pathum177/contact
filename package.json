@@ -6,7 +6,7 @@
   "scripts": {
     "start": "pm2 start index.js --deep-monitoring --attach --name LUXALGO-XD",
     "stop": "pm2 stop LUXALGO-XD",
-    "restart": "pm2 restart LUXALGO-XD"
+    "restart": "pm2 restart LUXALGO-XD",
     "engines": {
     "node": "21.x"
   },
