@@ -27,6 +27,7 @@ const {
   sleep, 
   fetchJson 
 } = require('./lib/functions')
+const { AntiDelDB, initializeAntiDeleteSettings, setAnti, getAnti, getAllAntiDeleteSettings, saveContact, loadMessage, getName, getChatSummary, saveGroupMetadata, getGroupMetadata, saveMessageCount, getInactiveGroupMembers, getGroupMembersMessageCount, saveMessage } = require('./data')
 const fs = require('fs')
 const P = require('pino')
 const FileType = require('file-type')
