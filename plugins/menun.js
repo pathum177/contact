@@ -41,7 +41,7 @@ cmd({
     ];
 
     const listMessage = {
-      text: "📌 _Select a category to view available commands_",
+      text: "📌 _Select a category to view available commandsx_",
       footer: "🔧LUXALGO-MD • Menu by Luxalgo",
       title: "📂 LUXALGO-MD COMMAND LIST",
       buttonText: "🗂 Open Menu",
