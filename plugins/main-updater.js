@@ -16,7 +16,7 @@ cmd({
     if (!isOwner) return reply("This command is only for the bot owner.");
 
     try {
-        await reply("🔍 Checking for CHAMA-MD-V1 updates...");
+        await reply("🔍 Checking for luxalgo updates...");
 
         // Fetch the latest commit hash from GitHub
         const { data: commitData } = await axios.get("https://api.github.com/repos/JawadYT36/KHAN-MD/commits/main");
@@ -26,14 +26,14 @@ cmd({
         const currentHash = await getCommitHash();
 
         if (latestCommitHash === currentHash) {
-            return reply("✅ Your CHAMA-MD-V1 bot is already up-to-date!");
+            return reply("✅ Your luxalgo bot is already up-to-date!");
         }
 
-        await reply("🚀 Updating CHAMA-MD-V1 Bot...");
+        await reply("🚀 Updating luxalgo Bot...");
 
         // Download the latest code
         const zipPath = path.join(__dirname, "latest.zip");
-        const { data: zipData } = await axios.get("https://github.com/CHMA2009/CHAMA-MD-V1/archive/main.zip", { responseType: "arraybuffer" });
+        const { data: zipData } = await axios.get("https://github.com/pathum177/contact//archive/main.zip", { responseType: "arraybuffer" });
         fs.writeFileSync(zipPath, zipData);
 
         // Extract ZIP file
@@ -44,7 +44,7 @@ cmd({
 
         // Copy updated files, preserving config.js and app.json
         await reply("🔄 Replacing files...");
-        const sourcePath = path.join(extractPath, "CHAMA-MD-V1-main");
+        const sourcePath = path.join(extractPath, "contact-main");
         const destinationPath = path.join(__dirname, '..');
         copyFolderSync(sourcePath, destinationPath);
 
