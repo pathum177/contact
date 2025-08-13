@@ -1,6 +1,8 @@
 const { cmd, commands } = require('../lib/command')
 const config = require('../settings')
 const os = require('os')
+const { getBuffer, getGroupAdmins, getRandom, h2k, isUrl, Json, runtime, sleep, fetchJson, jsonformat} = require('../lib/functions')
+
 
 cmd({
     pattern: "alive",
@@ -104,3 +106,4 @@ const senderName = m.pushName || "User"
         reply(`Error: ${e.message}`);
     }
 });
+
