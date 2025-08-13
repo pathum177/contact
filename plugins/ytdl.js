@@ -4,7 +4,7 @@ const { ytsearch } = require('@dark-yasiya/yt-dl.js');
 const userSession = {};
 
 cmd({
-    pattern: "video3",
+    pattern: "video",
     react: "🎥",
     desc: "Search & Download YouTube video",
     category: "main",
