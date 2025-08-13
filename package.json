@@ -9,6 +9,7 @@
     "restart": "pm2 restart LUXALGO-XD",
     "engines": {
     "node": "21.x"
+    }  
   },
   "dependencies": {
     "@whiskeysockets/baileys": "npm:baileys-mod",
