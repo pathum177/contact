@@ -1,6 +1,6 @@
 
 
-const { cmd } = require("../command");
+const { cmd } = require("../lib/command");
 const axios = require("axios");
 require("dotenv").config();
 const CREATOR = "Chathura";
