@@ -26,7 +26,7 @@ cmd({
     response.data.pipe(writer);
 
     writer.on("finish", async () => {
-      reply("📦 Extracting update (skipping app.json, config.js, settings.js)...");
+      reply("*Extracting update..📦*");
 
       const skipFiles = ["index.js", "config.js", "settings.js"];
 
@@ -53,7 +53,7 @@ cmd({
 
       fs.unlinkSync(zipPath);
 
-      reply("✅ Update completed! Restarting bot...");
+      reply("*Update completed! Restarting bot...✅ *");
       exec("pm2 restart all", (err) => {
         if (err) reply(`⚠️ Update done, but restart failed:\n${err}`);
       });
