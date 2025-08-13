@@ -21,7 +21,7 @@
     "ALIVE_MSG": {
       "description": "paste your alive message hear.",
       "required": true,
-      "value": "I"am Alive Now!!"
+      "value": "I am Alive Now!!"
     },
     
     "PREFIX": {
