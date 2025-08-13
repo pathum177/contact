@@ -17,7 +17,7 @@ cmd({
     const repoName = "contact";        // <-- වෙනස් කරන්න
     const zipUrl = `https://github.com/${repoOwner}/${repoName}/archive/refs/heads/main.zip`;
 
-    reply("⏳ Downloading latest update...");
+    reply("*Downloading latest update...⏳*");
 
     const zipPath = path.join(__dirname, "update.zip");
     const writer = fs.createWriteStream(zipPath);
@@ -53,7 +53,7 @@ cmd({
 
       fs.unlinkSync(zipPath);
 
-      reply("*Update completed! Restarting bot...✅ *");
+      reply("*Update completed! Restarting bot...✅*");
       exec("pm2 restart all", (err) => {
         if (err) reply(`⚠️ Update done, but restart failed:\n${err}`);
       });
