@@ -15,6 +15,8 @@
     "@whiskeysockets/baileys": "npm:baileys-mod",
     "@adiwajshing/keyed-db": "^0.2.4",
     "@dark-yasiya/yt-dl.js": "1.0.5",
+    "@dark-yasiya/scrap": "1.0.1",
+    "@xaviabot/fb-downloader": "1.0.14",
     "pino": "^9.6.0",
     "pm2": "^5.4.3",
     "util": "^0.12.4",
