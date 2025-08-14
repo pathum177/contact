@@ -1,8 +1,6 @@
 const { cmd } = require('../lib/command');
 const yts = require('yt-search');
 const ytdl = require('@distube/ytdl-core');
-const fs = require('fs');
-const path = require('path');
 
 cmd({
     pattern: 'song7',
@@ -22,49 +20,44 @@ cmd({
         const url = video.url;
 
         // 📝 Fancy caption
-        let caption = `🎵 *LUXALGO DOWNLOADER෴*\n\n` +
+        let caption = `🎵 *LUXALGO DOWNLOADER*\n\n` +
                       `📌 *Title:* ${video.title}\n` +
                       `📀 *Author:* ${video.author.name}\n` +
                       `⏱ *Duration:* ${video.timestamp}\n` +
                       `👀 *Views:* ${video.views.toLocaleString()}\n` +
                       `📅 *Uploaded:* ${video.ago}\n` +
                       `🔗 *URL:* ${url}\n\n` +
-                      `⬇️ *Downloading audio...*`;
+                      `⬇️ *Downloading audio...෴*`;
 
         await conn.sendMessage(m.chat, {
             image: { url: video.thumbnail },
             caption
         }, { quoted: m });
 
-        // 📂 Make sure temp folder exists
-        const tempDir = path.join(__dirname, '../temp');
-        if (!fs.existsSync(tempDir)) fs.mkdirSync(tempDir);
-
-        // 📥 Download as mp3
-        const filePath = path.join(tempDir, `${Date.now()}.mp3`);
-        const stream = ytdl(url, { filter: 'audioonly', quality: 'highestaudio' });
-        const writeStream = fs.createWriteStream(filePath);
-        stream.pipe(writeStream);
-
-        // ✅ Use 'close' instead of 'finish'
-        writeStream.on('close', async () => {
-            await conn.sendMessage(m.chat, {
-                audio: fs.readFileSync(filePath),
-                mimetype: 'audio/mp4',
-                ptt: false
-            }, { quoted: m });
-
-            fs.unlinkSync(filePath);
+        // 📥 Download to Buffer instead of file
+        const chunks = [];
+        await new Promise((resolve, reject) => {
+            ytdl(url, {
+                filter: 'audioonly',
+                quality: 'highestaudio',
+                highWaterMark: 1 << 25 // Prevents stream cut-off
+            })
+            .on('data', chunk => chunks.push(chunk))
+            .on('end', resolve)
+            .on('error', reject);
         });
 
-        // ❌ Error handler
-        stream.on('error', (err) => {
-            console.error('Download error:', err);
-            reply('❌ Download failed.');
-        });
+        const audioBuffer = Buffer.concat(chunks);
+
+        // 📤 Send audio
+        await conn.sendMessage(m.chat, {
+            audio: audioBuffer,
+            mimetype: 'audio/mp4',
+            ptt: false
+        }, { quoted: m });
 
     } catch (err) {
-        console.error(err);
+        console.error('Song Download Error:', err);
         reply('❌ Error downloading song.');
     }
 });
