@@ -5,9 +5,9 @@ const axios = require('axios');
 cmd({ 
     pattern: "song", 
     react: "🎶", 
-    desc: "Download Youtube song", 
+    desc: "Download YouTube song as voice & document",
     category: "main", 
-    use: '.song < Yt url or Name >', 
+    use: '.song <Yt url or Name>', 
     filename: __filename 
 }, async (conn, mek, m, { from, q, reply }) => {
     try {
@@ -39,13 +39,21 @@ cmd({
         // Send song details
         await conn.sendMessage(from, { image: { url: data.result.image || '' }, caption: ytmsg }, { quoted: mek });
 
-        // Send audio file
-        await conn.sendMessage(from, { audio: { url: data.result.downloadUrl }, mimetype: "audio/mpeg" }, { quoted: mek });
-
-        // Send document file
+        // Send as voice note
         await conn.sendMessage(from, { 
-            document: { url: data.result.downloadUrl, mimetype: "audio/mpeg", fileName: `${yts.title}.mp3` }, 
-            caption: `> *© Pᴏᴡᴇʀᴇᴅ Bʏ ʟᴜxᴀʟɢᴏ xᴅ ♡*`
+            audio: { url: data.result.downloadUrl }, 
+            mimetype: "audio/mpeg", 
+            ptt: true  // voice note
+        }, { quoted: mek });
+
+        // Send as document
+        await conn.sendMessage(from, { 
+            document: { 
+                url: data.result.downloadUrl, 
+                mimetype: "audio/mpeg", 
+                fileName: `${yts.title}.mp3`
+            }, 
+            caption: `*🎵 ${yts.title}*\n> © Pᴏᴡᴇʀᴇᴅ Bʏ ʟᴜxᴀʟɢᴏ xᴅ ♡`
         }, { quoted: mek });
 
     } catch (e) {
