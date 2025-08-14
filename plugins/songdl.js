@@ -5,7 +5,7 @@ const fs = require('fs');
 const path = require('path');
 
 cmd({
-    pattern: 'song7 ?(.*)',
+    pattern: 'song7',
     react: '🎶',
     desc: 'Download MP3 from YouTube',
     category: 'main',
