@@ -6,34 +6,31 @@ let userSession = {};
 
 cmd({ 
     pattern: 'song', 
-    desc: 'Download YouTube song/video with number reply', 
+    desc: 'Download YouTube song/video with buttons', 
     category: 'main' 
 }, async (conn, mek, m, { q, from, reply, command }) => {
     const sender = m.sender;
     const type = command === 'video' ? 'video' : 'audio';
     const text = q?.trim();
 
-    // Step 2: If user reply number
-    if (userSession[sender]) {
-        let data = userSession[sender].data;
-        let index = parseInt(text) - 1;
-        if (isNaN(index) || index < 0 || index >= data.length) return reply('❌ Invalid number');
+    // Step 2: If user clicked a button
+    if (userSession[sender]?.buttons) {
+        const index = parseInt(text) - 1;
+        const yt = userSession[sender].buttons[index];
+        if (!yt) return reply('❌ Invalid selection.');
 
-        let yt = data[index];
-        let apiUrl = type === 'video' ?
+        const apiUrl = type === 'video' ?
             `https://apis.davidcyriltech.my.id/download/ytmp4?url=${encodeURIComponent(yt.url)}` :
             `https://apis.davidcyriltech.my.id/youtube/mp3?url=${encodeURIComponent(yt.url)}`;
-
         try {
-            let res = await axios.get(apiUrl);
-            let dl = res.data.result;
-            if (!dl) return reply('❌ Failed to fetch file');
+            const res = await axios.get(apiUrl);
+            const dl = res.data.result;
+            if (!dl) return reply('❌ Failed to fetch file.');
 
-            // Send details
-            let caption = `*🎵 LUXALGO ${type.toUpperCase()} DOWNLOADER 🎵*\n\nTitle: ${yt.title}\nDuration: ${yt.timestamp}\nViews: ${yt.views}\nAuthor: ${yt.author.name}\nLink: ${yt.url}`;
+            const caption = `*🎵 LUXALGO ${type.toUpperCase()} DOWNLOADER 🎵*\n\nTitle: ${yt.title}\nDuration: ${yt.timestamp}\nViews: ${yt.views}\nAuthor: ${yt.author.name}\nLink: ${yt.url}`;
+
             await conn.sendMessage(from, { image: { url: dl.thumbnail || dl.image }, caption }, { quoted: mek });
 
-            // Send file
             if (type === 'video') {
                 await conn.sendMessage(from, { video: { url: dl.download_url }, mimetype: 'video/mp4' }, { quoted: mek });
                 await conn.sendMessage(from, { document: { url: dl.download_url, mimetype: 'video/mp4', fileName: `${yt.title}.mp4` } }, { quoted: mek });
@@ -45,33 +42,31 @@ cmd({
             delete userSession[sender];
         } catch (e) {
             console.log(e);
-            return reply('❌ Error downloading file');
+            reply('❌ Error downloading file.');
         }
         return;
     }
 
-    // Step 1: Search
-    if (!text) return reply('🔍 Please provide a YouTube URL or song name');
-
+    // Step 1: Search YouTube
+    if (!text) return reply('🔍 Please provide a YouTube URL or song name.');
     try {
         const yt = await ytsearch(text);
-        if (!yt.results || yt.results.length === 0) return reply('❌ No results found');
+        if (!yt.results || yt.results.length === 0) return reply('❌ No results found.');
 
-        let listText = '*Top 5 results:*\n\n';
         let results = yt.results.slice(0,5);
-        results.forEach((item, i) => {
-            listText += `${i+1}. ${item.title} (${item.timestamp})\n`;
-        });
-        listText += '\nReply with number to download (e.g., 1)';
+        let buttons = results.map((item, i) => ({ buttonId: `${i+1}`, buttonText: { displayText: `${i+1}. ${item.title}` }, type: 1 }));
+        let message = {
+            text: '*Top 5 results:*\nReply number or click button',
+            buttons: buttons,
+            headerType: 1
+        };
+        await conn.sendMessage(from, message, { quoted: mek });
 
-        await conn.sendMessage(from, { text: listText }, { quoted: mek });
-
-        // Save session for reply
-        userSession[sender] = { data: results };
-
+        userSession[sender] = { buttons: results };
     } catch (e) {
         console.log(e);
-        return reply('❌ Error searching YouTube');
+        return reply('❌ Error searching YouTube.');
     }
 });
+
 
