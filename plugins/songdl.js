@@ -5,7 +5,7 @@ const axios = require('axios');
 let userSession = {};
 
 cmd({ 
-    pattern: 'song|video', 
+    pattern: 'song', 
     desc: 'Download YouTube song/video with number reply', 
     category: 'main' 
 }, async (conn, mek, m, { q, from, reply, command }) => {
