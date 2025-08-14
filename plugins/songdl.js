@@ -2,10 +2,12 @@ const { cmd } = require('../lib/command');
 const { ytsearch } = require('@dark-yasiya/yt-dl.js');
 const axios = require('axios');
 
+const userSession = {}; // user replies track කිරීම සඳහා
+
 cmd({ 
     pattern: "song", 
     react: "🎶", 
-    desc: "Download YouTube song as voice note + document", 
+    desc: "Download YouTube song (voice or document)", 
     category: "main", 
     use: '.song <Yt url or Name>', 
     filename: __filename 
@@ -18,44 +20,60 @@ cmd({
         if (!yt.results || yt.results.length === 0) return reply("❌ No results found!");
 
         const yts = yt.results[0];
-        const apiUrl = `https://apis.davidcyriltech.my.id/youtube/mp3?url=${encodeURIComponent(yts.url)}`;
-        const response = await axios.get(apiUrl);
-        const data = response.data;
+        userSession[from] = { yts }; // save for reply handling
 
-        if (!data.success || !data.result.downloadUrl) return reply("❌ Failed to fetch the audio.");
+        const msg = `*🎵 LUXALGO SONG DOWNLOADER 🎵*
 
-        const ytmsg = `*🎵 LUXALGO SONG DOWNLOADER 🎵*
+Title: ${yts.title}
+Duration: ${yts.timestamp}
+Views: ${yts.views}
 
-╭━━❐━⪼
-┇📄 *Title* - ${yts.title}
-┇⏱️ *Duration* - ${yts.timestamp}
-┇📌 *Views* - ${yts.views}
-┇👤 *Author* - ${yts.author.name}
-┇🔗 *Link* - ${yts.url}
-╰───────────●●►
+Reply with:
+1️⃣ Voice note
+2️⃣ MP3 document`;
 
-> *© Pᴏᴡᴇʀᴇᴅ Bʏ ʟᴜxᴀʟɢᴏ xᴅ ♡*`;
-
-        // Send song details
-        await conn.sendMessage(from, { image: { url: data.result.image || '' }, caption: ytmsg }, { quoted: mek });
-
-        // Send voice note
-        await conn.sendMessage(from, { 
-            audio: { url: data.result.downloadUrl }, 
-            mimetype: "audio/mpeg", 
-            ptt: true 
-        }, { quoted: mek });
-
-        // Send as document
-        await conn.sendMessage(from, { 
-            document: { url: data.result.downloadUrl }, 
-            mimetype: "audio/mpeg", 
-            fileName: `${yts.title}.mp3`, 
-            caption: ` *${yts.title}*\n> *© Pᴏᴡᴇʀᴇᴅ Bʏ ʟᴜxᴀʟɢᴏ xᴅ ♡*`
-        }, { quoted: mek });
+        await reply(msg);
 
     } catch (e) {
         console.log(e);
         reply("❌ An error occurred. Please try again later.");
     }
 });
+
+// Reply handler
+cmd({ pattern: /^(1|2)$/, fromMe: false, onlyReply: true }, async (conn, mek, m, { from, reply, text }) => {
+    try {
+        if (!userSession[from]) return; // no session found
+
+        const { yts } = userSession[from];
+        const apiUrl = `https://apis.davidcyriltech.my.id/youtube/mp3?url=${encodeURIComponent(yts.url)}`;
+        const response = await axios.get(apiUrl);
+        const data = response.data;
+
+        if (!data.success || !data.result.downloadUrl) return reply("❌ Failed to fetch the audio.");
+
+        if (text === "1") {
+            // Voice note
+            await conn.sendMessage(from, { 
+                audio: { url: data.result.downloadUrl }, 
+                mimetype: "audio/mpeg", 
+                ptt: true 
+            }, { quoted: mek });
+        } else if (text === "2") {
+            // Document
+            await conn.sendMessage(from, { 
+                document: { url: data.result.downloadUrl }, 
+                mimetype: "audio/mpeg", 
+                fileName: `${yts.title}.mp3`, 
+                caption: `> *${yts.title}*\n> *© Pᴏᴡᴇʀᴇᴅ Bʏ ʟᴜxᴀʟɢᴏ xᴅ ♡*`
+            }, { quoted: mek });
+        }
+
+        delete userSession[from]; // clear session after sending
+
+    } catch (e) {
+        console.log(e);
+        reply("❌ An error occurred. Please try again later.");
+    }
+});
+
