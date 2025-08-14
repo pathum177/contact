@@ -4,7 +4,7 @@ const { ytsearch, ytmp3, ytmp4 } = require('@dark-yasiya/yt-dl.js');
 //song
 
 cmd({ 
-    pattern: "song", 
+    pattern: "song9", 
     react: "🎶", 
     desc: "Download MP3 from YouTube", 
     category: "main", 
