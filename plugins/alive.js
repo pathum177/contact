@@ -44,7 +44,17 @@ const senderName = m.pushName || "User"
                 title: "List of LUXALGO-XD Bot Commands",
                 highlight_label: "LUXALGO-XD",
                 rows: vpsOptions
-            }
+            },
+             externalAdReply: {
+            title: 'AI • Status',
+            body: 'Contact: © LUXALGO XD', // second line
+            mediaType: 2, // link preview style
+            thumbnailUrl: 'https://i.ibb.co/3S2nB7Z/ai-status.jpg',
+            sourceUrl: 'https://example.com',
+            showAdAttribution: false,
+            renderLargerThumbnail: true
+         }
+     }
         ];
 
         let buttons = [
