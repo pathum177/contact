@@ -38,13 +38,6 @@ const senderName = m.pushName || "User"
             { title: "ᴅᴏᴡɴʟᴏᴀᴅ menu ", description: "Get Bot Download Menu", id: `${prefix}dlmenu` },
             { title: "ᴍᴏᴠɪᴇ ᴍᴇɴᴜ ", description: "Get Bot Movie Menu", id: `${prefix}moviemenu` },
             { title: "ᴄᴏɴᴠᴇʀᴛ menu ", description: "Get Bot Convert Menu", id: `${prefix}convertmenu` },
-            { title: "ɢʀᴏᴜᴘ ᴍᴇɴᴜ ", description: "Get Group Only Commands", id: `${prefix}groupmenu` },
-            { title: "ᴀɪ ᴍᴇɴᴜ ", description: "Get Bot AI Commands List", id: `${prefix}aimenu` },
-            { title: "ꜱᴇᴀʀᴄʜ menu ", description: "Get Bot Search Menu", id: `${prefix}searchmenu` },
-            { title: "ꜰᴜɴ menu ", description: "Fun Joke Menu Bot", id: `${prefix}funmenu` },
-            { title: "ᴀɴɪᴍᴇ menu ", description: "Owner Only Bug Menu", id: `${prefix}animemenu` },
-            { title: "ʀᴇᴀᴄᴛɪᴏɴ menu ", description: "Get ʀᴇᴀᴄᴛɪᴏɴ Menu", id: `${prefix}reactions` },
-            { title: "ᴏᴡɴᴇʀ menu ", description: "Get Bot ᴏᴡɴᴇʀ Menu", id: `${prefix}ownermenu` },
             { title: "ᴏᴛʜᴇʀ ᴍᴇɴᴜ ", description: "ᴏᴛʜᴇʀ Commands Menu", id: `${prefix}othermenu` }
         ];
 
