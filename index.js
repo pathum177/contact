@@ -167,26 +167,13 @@ conn.sendMessage(conn.user.id,{ text: up, contextInfo: {
 })
 
 
-conn.ev.on('messages.upsert', async (mek) => {
-    try {
-        let msg = mek.messages[0];
-        if (!msg.message) return;
+conn.ev.on('creds.update', saveCreds)  
 
-        // Unwrap ephemeral messages
-        msg.message = (getContentType(msg.message) === 'ephemeralMessage')
-            ? msg.message.ephemeralMessage.message
-            : msg.message;
-
-        const sender = msg.key.remoteJid;
-        const messageType = getContentType(msg.message);
-        const text = (messageType === 'conversation')
-            ? msg.message.conversation
-            : (messageType === 'extendedTextMessage')
-            ? msg.message.extendedTextMessage.text
-            : '';
-
-        console.log(`📩 New Message from ${sender}: ${text}`);
-
+    conn.ev.on('messages.upsert', async (mek) => {
+      try {
+            mek = mek.messages[0]
+            if (!mek.message) return
+            mek.message = (getContentType(mek.message) === 'ephemeralMessage') ? mek.message.ephemeralMessage.message : mek.message
 
 //================== AUTO STATUS VIEW ==================
 
