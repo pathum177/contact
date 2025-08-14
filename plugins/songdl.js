@@ -2,12 +2,12 @@ const { cmd } = require('../lib/command');
 const { ytsearch } = require('@dark-yasiya/yt-dl.js');
 const axios = require('axios');
 
-const songSessions = {}; // store url for each user temporarily
+const songSessions = {}; // store download URL per user temporarily
 
 cmd({ 
     pattern: "song", 
     react: "🎶", 
-    desc: "Download YouTube song as voice note + document with buttons", 
+    desc: "Download YouTube song as voice note + document with sections", 
     category: "main", 
     use: '.song <Yt url or Name>', 
     filename: __filename 
@@ -24,29 +24,26 @@ cmd({
 
         if (!data.success || !data.result.downloadUrl) return reply("❌ Failed to fetch the audio.");
 
-        const ytmsg = `*🎵 LUXALGO SONG DOWNLOADER 🎵*
-╭━━❐━⪼
-┇📄 *Title* - ${yts.title}
-┇⏱️ *Duration* - ${yts.timestamp}
-┇📌 *Views* - ${yts.views}
-┇👤 *Author* - ${yts.author.name}
-┇🔗 *Link* - ${yts.url}
-╰───────────●●►
-> *© Pᴏᴡᴇʀᴇᴅ Bʏ ʟᴜxᴀʟɢᴏ xᴅ ♡*`;
-
-        // Save session
+        // Save download URL in session
         songSessions[from] = data.result.downloadUrl;
 
-        const buttons = [
-            { buttonId: 'song_voice', buttonText: { displayText: "🎤 Voice Note" }, type: 1 },
-            { buttonId: 'song_doc', buttonText: { displayText: "📄 Document" }, type: 1 }
+        const ytmsg = `*🎵 LUXALGO SONG DOWNLOADER 🎵*\n\nTitle: ${yts.title}\nDuration: ${yts.timestamp}\nViews: ${yts.views}\nAuthor: ${yts.author.name}\nLink: ${yts.url}`;
+
+        const sections = [
+            {
+                title: "Choose download type",
+                rows: [
+                    { title: "🎤 Voice Note", rowId: "song_voice" },
+                    { title: "📄 Document", rowId: "song_doc" }
+                ]
+            }
         ];
 
         await conn.sendMessage(from, {
-            image: { url: data.result.image || '' },
-            caption: ytmsg,
-            buttons: buttons,
-            headerType: 4
+            text: ytmsg,
+            footer: "© Pᴏᴡᴇʀᴇᴅ Bʏ LUXALGO XD",
+            buttonText: "Download Options",
+            sections: sections
         }, { quoted: mek });
 
     } catch (e) {
@@ -55,7 +52,7 @@ cmd({
     }
 });
 
-// Voice note button
+// Voice note handler
 cmd({ pattern: "song_voice", fromMe: false, filename: __filename }, async (conn, mek, m, { reply }) => {
     try {
         const url = songSessions[m.sender];
@@ -72,7 +69,7 @@ cmd({ pattern: "song_voice", fromMe: false, filename: __filename }, async (conn,
     }
 });
 
-// Document button
+// Document handler
 cmd({ pattern: "song_doc", fromMe: false, filename: __filename }, async (conn, mek, m, { reply }) => {
     try {
         const url = songSessions[m.sender];
@@ -89,3 +86,4 @@ cmd({ pattern: "song_doc", fromMe: false, filename: __filename }, async (conn, m
         reply("❌ Failed to send document.");
     }
 });
+
