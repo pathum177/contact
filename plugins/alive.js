@@ -16,7 +16,7 @@ cmd({
 const senderName = m.pushName || "User"
 
         let teksnya = `
-*👋Hello ${senderName}, welcome LUXALGO-XD❄️* 
+*👋Hello ${senderName}, Welcome LUXALGO-XD❄️* 
 ╭──────────────●●►
 | *🛠️  Version:* ${require("../package.json").version}
 | *📟 Ram usage:* ${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)}MB / ${Math.round(require('os').totalmem / 1024 / 1024)}MB
@@ -34,11 +34,9 @@ const senderName = m.pushName || "User"
 
         let vpsOptions = [
         
-            { title: "ᴍᴀɪɴ menu ", description: "Get Bot ᴍᴀɪɴ Menu", id: `${prefix}ping` },
-            { title: "ᴅᴏᴡɴʟᴏᴀᴅ menu ", description: "Get Bot Download Menu", id: `${prefix}dlmenu` },
-            { title: "ᴍᴏᴠɪᴇ ᴍᴇɴᴜ ", description: "Get Bot Movie Menu", id: `${prefix}moviemenu` },
-            { title: "ᴄᴏɴᴠᴇʀᴛ menu ", description: "Get Bot Convert Menu", id: `${prefix}convertmenu` },
-            { title: "ᴏᴛʜᴇʀ ᴍᴇɴᴜ ", description: "ᴏᴛʜᴇʀ Commands Menu", id: `${prefix}othermenu` }
+            { title: "𝙼𝙰𝙸𝙽 𝙼𝙴𝙽𝚄 ", description: "ᴄʀᴇᴀᴛᴇᴅ ʙʏ ᴘᴀᴛʜᴜᴍ ᴍᴀʟꜱᴀʀᴀ", id: `${prefix}menu` },
+            { title: "𝙾𝚆𝙽𝙴𝚁 ", description: "ᴄʀᴇᴀᴛᴇᴅ ʙʏ ᴘᴀᴛʜᴜᴍ ᴍᴀʟꜱᴀʀᴀ", id: `${prefix}owner` },
+            { title: "𝙿𝙸𝙽𝙶 ", description: "ᴄʀᴇᴀᴛᴇᴅ ʙʏ ᴘᴀᴛʜᴜᴍ ᴍᴀʟꜱᴀʀᴀ", id: `${prefix}ping` }
         ];
 
         let buttonSections = [
@@ -57,20 +55,10 @@ const senderName = m.pushName || "User"
         nativeFlowInfo: {
             name: "single_select",
             paramsJson: JSON.stringify({
-                title: "MENU📃",
+                title: "𝗖𝗛𝗢𝗢𝗦𝗘 𝗔𝗟𝗜𝗩𝗘 𝗧𝗔𝗕",
                 sections: buttonSections
             })
         }
-    },
-    {
-        buttonId: ".owner",
-        buttonText: { displayText: "OWNER👨‍💻" },
-        type: 1
-    },
-    {
-        buttonId: ".ping",
-        buttonText: { displayText: "PING🧬" },
-        type: 1
     }
 ];
 
