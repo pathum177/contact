@@ -186,9 +186,7 @@ conn.ev.on('messages.upsert', async (mek) => {
             : '';
 
         console.log(`📩 New Message from ${sender}: ${text}`);
-    } catch (err) {
-        console.error(err);
-    }
+
 
 //================== AUTO STATUS VIEW ==================
 
