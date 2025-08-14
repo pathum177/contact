@@ -5,7 +5,7 @@ const axios = require('axios');
 cmd({ 
     pattern: "song", 
     react: "🎶", 
-    desc: "Download YouTube song as voice note + document", 
+    desc: "Download YouTube song as voice note + document with buttons", 
     category: "main", 
     use: '.song <Yt url or Name>', 
     filename: __filename 
@@ -36,26 +36,53 @@ cmd({
 
 > *© Pᴏᴡᴇʀᴇᴅ Bʏ ʟᴜxᴀʟɢᴏ xᴅ ♡*`;
 
-        // Send song details
-        await conn.sendMessage(from, { image: { url: data.result.image || '' }, caption: ytmsg }, { quoted: mek });
+        // Buttons for Voice Note and Document
+        const buttons = [
+            { buttonId: `voice_${data.result.downloadUrl}`, buttonText: { displayText: "🎤 Voice Note" }, type: 1 },
+            { buttonId: `doc_${data.result.downloadUrl}`, buttonText: { displayText: "📄 Document" }, type: 1 }
+        ];
 
-        // Send voice note
-        await conn.sendMessage(from, { 
-            audio: { url: data.result.downloadUrl }, 
-            mimetype: "audio/mpeg", 
-            ptt: true 
-        }, { quoted: mek });
-
-        // Send as document
-        await conn.sendMessage(from, { 
-            document: { url: data.result.downloadUrl }, 
-            mimetype: "audio/mpeg", 
-            fileName: `${yts.title}.mp3`, 
-            caption: ` *${yts.title}*\n> *© Pᴏᴡᴇʀᴇᴅ Bʏ ʟᴜxᴀʟɢᴏ xᴅ ♡*`
+        // Send message with buttons
+        await conn.sendMessage(from, {
+            image: { url: data.result.image || '' },
+            caption: ytmsg,
+            buttons: buttons,
+            headerType: 4
         }, { quoted: mek });
 
     } catch (e) {
         console.log(e);
         reply("❌ An error occurred. Please try again later.");
+    }
+});
+
+// Handle voice note button
+cmd({ pattern: "voice_", fromMe: false, filename: __filename }, async (conn, mek, m, { text, reply }) => {
+    try {
+        const url = text.replace("voice_", "");
+        await conn.sendMessage(m.key.remoteJid, {
+            audio: { url: url },
+            mimetype: "audio/mpeg",
+            ptt: true
+        }, { quoted: m });
+    } catch (e) {
+        console.log(e);
+        reply("❌ Failed to send voice note.");
+    }
+});
+
+// Handle document button
+cmd({ pattern: "doc_", fromMe: false, filename: __filename }, async (conn, mek, m, { text, reply }) => {
+    try {
+        const url = text.replace("doc_", "");
+        await conn.sendMessage(m.key.remoteJid, {
+            document: { url: url },
+            mimetype: "audio/mpeg",
+            fileName: `Song.mp3`,
+            caption: "🎵 Here's your document!"
+        }, { quoted: m });
+    } catch (e) {
+        console.log(e);
+        reply("❌ Failed to send document.");
     }
 });
