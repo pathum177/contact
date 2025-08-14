@@ -2,6 +2,8 @@ const { cmd } = require('../lib/command');
 const { ytsearch } = require('@dark-yasiya/yt-dl.js');
 const axios = require('axios');
 
+const songSessions = {}; // store url for each user temporarily
+
 cmd({ 
     pattern: "song", 
     react: "🎶", 
@@ -13,19 +15,16 @@ cmd({
     try {
         if (!q) return await reply("🔍 Please provide a YouTube URL or song name.");
 
-        // Search YouTube
         const yt = await ytsearch(q);
         if (!yt.results || yt.results.length === 0) return reply("❌ No results found!");
 
         const yts = yt.results[0];
         const apiUrl = `https://apis.davidcyriltech.my.id/youtube/mp3?url=${encodeURIComponent(yts.url)}`;
-        const response = await axios.get(apiUrl);
-        const data = response.data;
+        const { data } = await axios.get(apiUrl);
 
         if (!data.success || !data.result.downloadUrl) return reply("❌ Failed to fetch the audio.");
 
         const ytmsg = `*🎵 LUXALGO SONG DOWNLOADER 🎵*
-
 ╭━━❐━⪼
 ┇📄 *Title* - ${yts.title}
 ┇⏱️ *Duration* - ${yts.timestamp}
@@ -33,16 +32,16 @@ cmd({
 ┇👤 *Author* - ${yts.author.name}
 ┇🔗 *Link* - ${yts.url}
 ╰───────────●●►
-
 > *© Pᴏᴡᴇʀᴇᴅ Bʏ ʟᴜxᴀʟɢᴏ xᴅ ♡*`;
 
-        // Buttons for Voice Note and Document
+        // Save session
+        songSessions[from] = data.result.downloadUrl;
+
         const buttons = [
-            { buttonId: `voice_${data.result.downloadUrl}`, buttonText: { displayText: "🎤 Voice Note" }, type: 1 },
-            { buttonId: `doc_${data.result.downloadUrl}`, buttonText: { displayText: "📄 Document" }, type: 1 }
+            { buttonId: 'song_voice', buttonText: { displayText: "🎤 Voice Note" }, type: 1 },
+            { buttonId: 'song_doc', buttonText: { displayText: "📄 Document" }, type: 1 }
         ];
 
-        // Send message with buttons
         await conn.sendMessage(from, {
             image: { url: data.result.image || '' },
             caption: ytmsg,
@@ -56,12 +55,14 @@ cmd({
     }
 });
 
-// Handle voice note button
-cmd({ pattern: "voice_", fromMe: false, filename: __filename }, async (conn, mek, m, { text, reply }) => {
+// Voice note button
+cmd({ pattern: "song_voice", fromMe: false, filename: __filename }, async (conn, mek, m, { reply }) => {
     try {
-        const url = text.replace("voice_", "");
+        const url = songSessions[m.sender];
+        if (!url) return reply("❌ Session expired. Please search again.");
+
         await conn.sendMessage(m.key.remoteJid, {
-            audio: { url: url },
+            audio: { url },
             mimetype: "audio/mpeg",
             ptt: true
         }, { quoted: m });
@@ -71,12 +72,14 @@ cmd({ pattern: "voice_", fromMe: false, filename: __filename }, async (conn, mek
     }
 });
 
-// Handle document button
-cmd({ pattern: "doc_", fromMe: false, filename: __filename }, async (conn, mek, m, { text, reply }) => {
+// Document button
+cmd({ pattern: "song_doc", fromMe: false, filename: __filename }, async (conn, mek, m, { reply }) => {
     try {
-        const url = text.replace("doc_", "");
+        const url = songSessions[m.sender];
+        if (!url) return reply("❌ Session expired. Please search again.");
+
         await conn.sendMessage(m.key.remoteJid, {
-            document: { url: url },
+            document: { url },
             mimetype: "audio/mpeg",
             fileName: `Song.mp3`,
             caption: "🎵 Here's your document!"
