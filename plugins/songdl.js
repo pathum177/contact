@@ -22,7 +22,7 @@ cmd({
         const url = video.url;
 
         // 📝 Fancy caption
-        let caption = `🎵 *LUXALGO DOWNLOADER*\n\n` +
+        let caption = `🎵 *LUXALGO DOWNLOADER෴*\n\n` +
                       `📌 *Title:* ${video.title}\n` +
                       `📀 *Author:* ${video.author.name}\n` +
                       `⏱ *Duration:* ${video.timestamp}\n` +
@@ -36,13 +36,18 @@ cmd({
             caption
         }, { quoted: m });
 
+        // 📂 Make sure temp folder exists
+        const tempDir = path.join(__dirname, '../temp');
+        if (!fs.existsSync(tempDir)) fs.mkdirSync(tempDir);
+
         // 📥 Download as mp3
-        const filePath = path.join(__dirname, `../temp/${Date.now()}.mp3`);
+        const filePath = path.join(tempDir, `${Date.now()}.mp3`);
         const stream = ytdl(url, { filter: 'audioonly', quality: 'highestaudio' });
         const writeStream = fs.createWriteStream(filePath);
         stream.pipe(writeStream);
 
-        writeStream.on('finish', async () => {
+        // ✅ Use 'close' instead of 'finish'
+        writeStream.on('close', async () => {
             await conn.sendMessage(m.chat, {
                 audio: fs.readFileSync(filePath),
                 mimetype: 'audio/mp4',
@@ -50,6 +55,12 @@ cmd({
             }, { quoted: m });
 
             fs.unlinkSync(filePath);
+        });
+
+        // ❌ Error handler
+        stream.on('error', (err) => {
+            console.error('Download error:', err);
+            reply('❌ Download failed.');
         });
 
     } catch (err) {
