@@ -51,7 +51,7 @@ cmd({
             document: { url: data.result.downloadUrl }, 
             mimetype: "audio/mpeg", 
             fileName: `${yts.title}.mp3`, 
-            caption: `> *${yts.title}*\n> *© Pᴏᴡᴇʀᴇᴅ Bʏ ʟᴜxᴀʟɢᴏ xᴅ ♡*`
+            caption: ` *${yts.title}*\n> *© Pᴏᴡᴇʀᴇᴅ Bʏ ʟᴜxᴀʟɢᴏ xᴅ ♡*`
         }, { quoted: mek });
 
     } catch (e) {
