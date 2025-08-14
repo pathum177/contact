@@ -1,198 +1,79 @@
-const l = console.log;
-const config = require('../settings');
 const { cmd } = require('../lib/command');
 const axios = require('axios');
-const NodeCache = require('node-cache');
 
-const searchCache = new NodeCache({ stdTTL: 60, checkperiod: 120 });
-const activeSessions = new Map();
+const searchCache = {};
+const infoCache = {};
 
 cmd({
-  pattern: "movie",
-  react: "🎬",
-  desc: "Search and download Movies/TV Series",
-  category: "media",
-  filename: __filename,
-}, async (conn, mek, m, { from, q }) => {
-  const sender = mek.key.participant || mek.key.remoteJid;
-  const userSessionKey = from + ":" + sender;
+    pattern: 'mv)',
+    desc: 'Search SinhalaSub Movies',
+    category: 'movie',
+    filename: __filename
+}, async (conn, m, msg, { q, reply }) => {
+    try {
+        if (!q) return reply('🎬 Movie name එකක් දෙන්න.\nඋදා: `.sinhalasub new`');
 
-  if (activeSessions.has(userSessionKey)) {
-    await conn.sendMessage(from, {
-      text: "⚠️ You already have an active movie session.\nReply 'done' to cancel it."
-    }, { quoted: mek });
-    return;
-  }
+        const res = await axios.get(`https://supun-md-mv.vercel.app/api/sinhalasub/search?q=${encodeURIComponent(q)}`);
+        const data = res.data;
 
-  if (!q) {
-    await conn.sendMessage(from, {
-      text: `*🎬LUXALGO Movie / TV Series Search*\n\n📋 Usage: .movie <name>\n📝 Example: .movie Breaking Bad\n\n💡 Reply 'done' to stop the process`
-    }, { quoted: mek });
-    return;
-  }
+        if (!data.status || !data.results.length) return reply('❌ Movie search result නෑ.');
 
-  activeSessions.set(userSessionKey, true);
-
-  try {
-    const cacheKey = `film_search_${q.toLowerCase()}`;
-    let searchData = searchCache.get(cacheKey);
-
-    if (!searchData) {
-      const searchUrl = `https://apis.davidcyriltech.my.id/movies/search?query=${encodeURIComponent(q)}`;
-      const response = await axios.get(searchUrl);
-      searchData = response.data;
-
-      if (!searchData.status || !searchData.results || searchData.results.length === 0) {
-        throw new Error("No results found.");
-      }
-
-      searchCache.set(cacheKey, searchData);
-    }
-
-    const films = searchData.results.map((film, index) => ({
-      number: index + 1,
-      title: film.title,
-      imdb: film.imdb,
-      year: film.year,
-      link: film.link,
-      image: film.image
-    }));
-
-    let filmList = `*🎬LUXALGO SEARCH RESULTS*\n\n`;
-    films.forEach(f => {
-      filmList += `🎥 ${f.number}. *${f.title}*\n   ⭐ IMDB: ${f.imdb}\n   📅 Year: ${f.year}\n\n`;
-    });
-    filmList += `🔢 Reply a number to download\n❌ Reply 'done' to cancel`;
-
-    const movieListMessage = await conn.sendMessage(from, {
-      image: { url: films[0].image },
-      caption: filmList
-    }, { quoted: mek });
-
-    const movieListMessageKey = movieListMessage.key;
-    const downloadOptionsMap = new Map();
-
-    const selectionHandler = async (update) => {
-      const msg = update.messages[0];
-      if (!msg.message || !msg.key || msg.key.remoteJid !== from) return;
-
-      const text = msg.message?.extendedTextMessage?.text?.trim();
-      const repliedToId = msg.message?.extendedTextMessage?.contextInfo?.stanzaId;
-      const msgSender = msg.key.participant;
-
-      if (msgSender !== sender || !text) return;
-
-      if (text.toLowerCase() === "done") {
-        conn.ev.off("messages.upsert", selectionHandler);
-        activeSessions.delete(userSessionKey);
-        await conn.sendMessage(from, {
-          text: "✅ Movie session ended."
-        }, { quoted: msg });
-        return;
-      }
-
-      // First reply - movie selection
-      if (repliedToId === movieListMessageKey.id) {
-        const selectedNumber = parseInt(text);
-        const selectedFilm = films.find(f => f.number === selectedNumber);
-
-        if (!selectedFilm) {
-          await conn.sendMessage(from, {
-            text: `❌ Invalid number. Try again.`
-          }, { quoted: msg });
-          return;
-        }
-
-        const downloadUrl = `https://apis.davidcyriltech.my.id/movies/download?url=${encodeURIComponent(selectedFilm.link)}`;
-        const response = await axios.get(downloadUrl);
-        const downloadData = response.data;
-
-        if (!downloadData.status || !downloadData.movie || !downloadData.movie.download_links) {
-          throw new Error("Download info error.");
-        }
-
-        const allLinks = downloadData.movie.download_links;
-        const downloadLinks = [];
-
-        const sd = allLinks.find(l => l.quality === "SD 480p" && l.direct_download);
-        if (sd) downloadLinks.push({ number: 1, quality: "SD", size: sd.size, url: sd.direct_download });
-
-        let hd = allLinks.find(l => l.quality === "HD 720p" && l.direct_download);
-        if (!hd) hd = allLinks.find(l => l.quality === "FHD 1080p" && l.direct_download);
-        if (hd) downloadLinks.push({ number: 2, quality: "HD", size: hd.size, url: hd.direct_download });
-
-        if (downloadLinks.length === 0) {
-          await conn.sendMessage(from, {
-            text: `❌ No valid download links found.`
-          }, { quoted: msg });
-          return;
-        }
-
-        let qualityList = `*🎬 ${selectedFilm.title}*\n\n📥 Choose Quality:\n\n`;
-        downloadLinks.forEach(dl => {
-          qualityList += `${dl.number}. *${dl.quality}* (${dl.size})\n`;
+        let list = `🎥 *SinhalaSub Search Results:*\n\n`;
+        data.results.forEach((mv, i) => {
+            list += `*${i + 1}.* ${mv.title}\n${mv.url}\n\n`;
         });
-        qualityList += `\n🔢 Reply with number\n❌ Reply 'done' to stop`;
 
-        const qualityMsg = await conn.sendMessage(from, {
-          image: { url: downloadData.movie.thumbnail || selectedFilm.image },
-          caption: qualityList
-        }, { quoted: msg });
+        searchCache[m.sender] = data.results;
+        reply(list + `_Reply with the number to get movie info_`);
+    } catch (e) {
+        console.error(e);
+        reply('❌ Error fetching search results.');
+    }
+});
 
-        downloadOptionsMap.set(qualityMsg.key.id, { film: selectedFilm, downloadLinks });
-      }
+// Handle number reply for movie info
+cmd({
+    on: 'message'
+}, async (conn, m, msg, { reply }) => {
+    try {
+        // Check if user has a search cache
+        if (searchCache[m.sender] && /^\d+$/.test(m.body.trim())) {
+            let index = parseInt(m.body.trim()) - 1;
+            let movie = searchCache[m.sender][index];
+            if (!movie) return;
 
-      else if (downloadOptionsMap.has(repliedToId)) {
-        const { film, downloadLinks } = downloadOptionsMap.get(repliedToId);
-        const selectedQuality = parseInt(text);
-        const selected = downloadLinks.find(dl => dl.number === selectedQuality);
+            const res = await axios.get(`https://supun-md-mv.vercel.app/api/sinhalasub/info?url=${movie.url}`);
+            const info = res.data;
 
-        if (!selected) {
-          await conn.sendMessage(from, {
-            text: `❌ Invalid quality selection.`
-          }, { quoted: msg });
-          return;
+            if (!info.status) return reply('❌ Movie info not found.');
+
+            let infoMsg = `🎬 *${info.title}*\n\n📅 Year: ${info.year}\n⭐ Rating: ${info.rating}\n📝 Genre: ${info.genre}\n\n${info.desc}\n\n🔗 *Movie Page:* ${movie.url}\n\n*Download Qualities:*\n`;
+            info.downloads.forEach((dl, i) => {
+                infoMsg += `*${i + 1}.* ${dl.quality} - ${dl.size}\n`;
+            });
+
+            infoCache[m.sender] = info.downloads;
+            reply(infoMsg + `_Reply with number to download_`);
         }
 
-        const size = selected.size.toLowerCase();
-        let sizeInGB = 0;
-        if (size.includes("gb")) sizeInGB = parseFloat(size.replace("gb", ""));
-        else if (size.includes("mb")) sizeInGB = parseFloat(size.replace("mb", "")) / 1024;
+        // Handle download
+        else if (infoCache[m.sender] && /^\d+$/.test(m.body.trim())) {
+            let index = parseInt(m.body.trim()) - 1;
+            let dl = infoCache[m.sender][index];
+            if (!dl) return;
 
-        conn.ev.off("messages.upsert", selectionHandler);
-        activeSessions.delete(userSessionKey);
+            const res = await axios.get(`https://supun-md-mv.vercel.app/api/sinhalasub/dl?url=${dl.url}`);
+            if (!res.data.status) return reply('❌ Download link not found.');
 
-        if (sizeInGB > 2) {
-          await conn.sendMessage(from, {
-            text: `⚠️ File too large.\n*Direct Link:*\n${selected.url}`
-          }, { quoted: msg });
-          return;
+            reply(`⬇ Downloading *${dl.quality}*...`);
+            await conn.sendMessage(m.chat, { document: { url: res.data.download }, mimetype: 'video/mp4', fileName: `Movie-${dl.quality}.mp4` }, { quoted: m });
+
+            // Clear caches
+            delete searchCache[m.sender];
+            delete infoCache[m.sender];
         }
-
-        try {
-          await conn.sendMessage(from, {
-            document: { url: selected.url },
-            mimetype: "video/mp4",
-            fileName: `${film.title} - ${selected.quality}.mp4`,
-            caption: `🎬 *${film.title}*\n📊 Size: ${selected.size}\n✅ Download Complete`
-          }, { quoted: msg });
-
-          await conn.sendMessage(from, { react: { text: "✅", key: msg.key } });
-        } catch (err) {
-          await conn.sendMessage(from, {
-            text: `❌ Error sending file. Try again.\n*Direct Link:*\n${selected.url}`
-          }, { quoted: msg });
-        }
-      }
-    };
-
-    conn.ev.on("messages.upsert", selectionHandler);
-
-  } catch (e) {
-    await conn.sendMessage(from, {
-      text: `❌ Error: ${e.message || "Unknown error"}`
-    }, { quoted: mek });
-    await conn.sendMessage(from, { react: { text: "❌", key: mek.key } });
-    activeSessions.delete(userSessionKey);
-  }
+    } catch (e) {
+        console.error(e);
+        reply('❌ Error processing request.');
+    }
 });
