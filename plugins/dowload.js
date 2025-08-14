@@ -4,7 +4,7 @@ const fs = require('fs');
 const path = require('path');
 
 cmd({
-    pattern: 'download ?(.*)',
+    pattern: 'download',
     desc: 'Download any link up to 2GB',
     category: 'downloader',
     filename: __filename
