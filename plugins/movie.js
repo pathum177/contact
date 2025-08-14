@@ -6,7 +6,7 @@ const searchResults = {};
 const infoResults = {};
 
 cmd({
-    pattern: 'sinhalasub ?(.*)',
+    pattern: 'sinhalasub',
     desc: 'Search SinhalaSub movies',
     category: 'movie',
     filename: __filename
