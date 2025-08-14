@@ -182,7 +182,7 @@ mek.message = (getContentType(mek.message) === 'ephemeralMessage') ? mek.message
 if (mek.key && mek.key.remoteJid === 'status@broadcast' && config.AUTO_READ_STATUS === "true"){
 await conn.readMessages([mek.key])  
 const mnyako = await jidNormalizedUser(conn.user.id)
-await conn.sendMessage(mek.key.remoteJid, { react: { key: mek.key, text: 'status seen🎉'}}, { statusJidList: [mek.key.participant, mnyako] })
+await conn.sendMessage(mek.key.remoteJid, { react: { key: mek.key, text: '🎉'}}, { statusJidList: [mek.key.participant, mnyako] })
 }	      
 	    if (mek.key && mek.key.remoteJid === 'status@broadcast') return
             const m = sms(conn, mek)
@@ -206,7 +206,19 @@ if (metadata.viewer_metadata === null) {
 
 //================== BODY ==================
 
-const body = (type === 'conversation') ? mek.message.conversation : (type === 'extendedTextMessage') ? mek.message.extendedTextMessage.text :(type == 'interactiveResponseMessage' ) ? mek.message.interactiveResponseMessage  && mek.message.interactiveResponseMessage.nativeFlowResponseMessage && JSON.parse(mek.message.interactiveResponseMessage.nativeFlowResponseMessage.paramsJson) && JSON.parse(mek.message.interactiveResponseMessage.nativeFlowResponseMessage.paramsJson).id :(type == 'templateButtonReplyMessage' )? mek.message.templateButtonReplyMessage && mek.message.templateButtonReplyMessage.selectedId  : (type === 'extendedTextMessage') ? mek.message.extendedTextMessage.text : (type == 'imageMessage') && mek.message.imageMessage.caption ? mek.message.imageMessage.caption : (type == 'videoMessage') && mek.message.videoMessage.caption ? mek.message.videoMessage.caption : ''
+const body = 
+  (type === 'conversation') ? mek.message.conversation :
+  (type === 'extendedTextMessage') ? mek.message.extendedTextMessage.text :
+  (type === 'imageMessage' && mek.message.imageMessage.caption) ? mek.message.imageMessage.caption :
+  (type === 'videoMessage' && mek.message.videoMessage.caption) ? mek.message.videoMessage.caption :
+  (type === 'templateButtonReplyMessage' && mek.message.templateButtonReplyMessage.selectedId) ? mek.message.templateButtonReplyMessage.selectedId :
+  (type === 'buttonsResponseMessage' && mek.message.buttonsResponseMessage.selectedButtonId) ? mek.message.buttonsResponseMessage.selectedButtonId :
+  (type === 'listResponseMessage' && mek.message.listResponseMessage.singleSelectReply.selectedRowId) ? mek.message.listResponseMessage.singleSelectReply.selectedRowId :
+  (type === 'interactiveResponseMessage' &&
+    mek.message.interactiveResponseMessage.nativeFlowResponseMessage &&
+    JSON.parse(mek.message.interactiveResponseMessage.nativeFlowResponseMessage.paramsJson)?.id
+  ) ? JSON.parse(mek.message.interactiveResponseMessage.nativeFlowResponseMessage.paramsJson).id :
+  ''
       
 
 	          const isCmd = body.startsWith(prefix)	    
