@@ -66,7 +66,7 @@ Select options below to configure the bot:`;
 
         // AI MODE
         { buttonId: '.update AUTO_AI:true', buttonText: { displayText: '🤖 AI Mode ON' }, type: 1 },
-        { buttonId: '.ping, buttonText: { displayText: '🤖 AI Mode OFF' }, type: 1 },
+        { buttonId: '.ping', buttonText: { displayText: '🤖 AI Mode OFF' }, type: 1 },
     ];
 
     await conn.sendMessage(from, {
