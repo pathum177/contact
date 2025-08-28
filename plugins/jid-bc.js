@@ -26,7 +26,7 @@ ${desc}
 💬 _Message sent via automated bot_ 
 `
 
-    if (!q) return reply("❌ Please provide a JID or group ID!\nExample: `.sendinfo 9477xxxxxxx@s.whatsapp.net`")
+    if (!q) return reply("❌ Please provide a JID or group ID!\nExample: `.send 9477xxxxxxx@s.whatsapp.net`")
 
     try {
         if (q.endsWith("@g.us")) {
