@@ -25,7 +25,7 @@ async (conn, mek, m, { from, q, reply }) => {
 
 *┃ 🔗 ᴜʀʟ:* ${q} 
 
-*➡️ Select an option below:*
+*⬇️ Select an option below:*
 `;
 
     const buttons = [
