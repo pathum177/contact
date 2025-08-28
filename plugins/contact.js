@@ -15,7 +15,7 @@ cmd({
     const ownerName = "Pathum Malsara"
     const ownerNumber = "94773416478"
     const ownerDescription = "⚡ WhatsApp Bot Developer\n📌 LUXALGO BOT Owner\n📱 Contact for projects!"
-    const ownerImage = "https://files.catbox.moe/joo2gt.jpg" // photo URL
+    const ownerImage = "https://files.catbox.moe/no9rxp.jpeg" // photo URL
 
     reply(`📤 Sending info to ${participants.length} members...`)
 
