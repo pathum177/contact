@@ -19,7 +19,7 @@ cmd({
 🛠️ Need your own bot? Contact now!
 `;
 
-    const imageUrl = "https://files.catbox.moe/joo2gt.jpg";
+    const imageUrl = "https://files.catbox.moe/no9rxp.jpeg";
 
     await conn.sendMessage(m.chat, {
       image: { url: imageUrl },
