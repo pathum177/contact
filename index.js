@@ -129,7 +129,7 @@ async function connectToWA() {;
          await conn.sendMessage(
            "94773416478@s.whatsapp.net",
          {
-       image: { url: "https://i.ibb.co/8gK9ZQZ/startup.png" }, // image url
+       image: { url: "https://files.catbox.moe/joo2gt.jpg" }, // image url
        caption: "✅ Bot Started!"
      }
    )
