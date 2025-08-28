@@ -21,9 +21,9 @@ async (conn, mek, m, { from, q, reply }) => {
     const result = await getFBInfo(q);
 
     const captionHeader = `
-*│*🎥 *LUXALGO FB DOWNLOADER 🎥*
+*🎥 *LUXALGO FB DOWNLOADER 🎥*
 
-*┃ 🔗 ᴜʀʟ:* ${q} 
+* 🔗 ᴜʀʟ:* ${q} 
 
 *⬇️ Select an option below:*
 `;
@@ -31,17 +31,17 @@ async (conn, mek, m, { from, q, reply }) => {
     const buttons = [
       {
         buttonId: `.fbdl sd ${q}`,
-        buttonText: { displayText: "📥 SD Video" },
+        buttonText: { displayText: "📥 SD QUALITY VIDEO" },
         type: 1
       },
       {
         buttonId: `.fbdl hd ${q}`,
-        buttonText: { displayText: "📺 *HD Video*" },
+        buttonText: { displayText: "🎥 HD QUALITY VIDEO" },
         type: 1
       },
       {
         buttonId: `.fbdl audio ${q}`,
-        buttonText: { displayText: "🎶 Audio" },
+        buttonText: { displayText: "🎶 AUDIO FILE" },
         type: 1
       }
     ]
