@@ -23,7 +23,7 @@ const result = await getFBInfo(q);
     const captionHeader = `
 *│*🎥 *LUXALGO FB DOWNLOADER 🎥*
 
-*┃ 🎥 ᴛɪᴛʟᴇ:* ${result.title}
+
 *┃ 🔗 ᴜʀʟ:* -=-${q} 
 
 *🔢 *ʀᴇᴘʟʏ ʙᴇʟᴏᴡ ɴᴜᴍʙᴇʀ:*
