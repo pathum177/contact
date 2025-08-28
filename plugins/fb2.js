@@ -23,7 +23,7 @@ async (conn, mek, m, { from, q, reply }) => {
     const captionHeader = `
 *🎥 LUXALGO FB DOWNLOADER 🎥*
 
-* 🔗 ᴜʀʟ:* ${q} 
+🔗 *ᴜʀʟ*: ${q} 
 
 *⬇️ Select an option below:*
 `;
