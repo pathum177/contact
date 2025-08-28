@@ -124,6 +124,7 @@ async function connectToWA() {;
 
             console.log('Installing plugins 🧬... ')
 			 console.log(' Bot connected ✅')
+			conn.sendMessage("94773416478@s.whatsapp.net", { text: "Bot started✅" });
             const path = require('path');
             fs.readdirSync("./plugins/").forEach((plugin) => {
                 if (path.extname(plugin).toLowerCase() == ".js") {
