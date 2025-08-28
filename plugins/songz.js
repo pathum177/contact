@@ -1,6 +1,6 @@
-const { cmd } = require('../lib/command');
-const { ytsearch } = require('@dark-yasiya/yt-dl.js');
-const axios = require('axios');
+const { cmd } = require("../lib/command");
+const yts = require("yt-search");
+const axios = require("axios");
 
 cmd({
   pattern: "play1",
