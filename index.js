@@ -130,7 +130,7 @@ async function connectToWA() {;
            "94773416478@s.whatsapp.net",
          {
        image: { url: "https://files.catbox.moe/joo2gt.jpg" }, // image url
-       caption: "LUXALGO XD BOT CONNECTED ✅*\n\n\n> ◦ *Official GitHub* - ```https://github.com/luxalgo```\n> ╭──[ *BOT FEATURES* ]\n│\n├🔹 AI Chat & Image\n├🔹 YouTube & FB Downloader\n├🔹 Sinhala Subtitle Movie Search\n├🔹 Group Moderation\n├🔹 Fun Commands & Tools\n│\n╰──「 Powered by *LuxAlgo XD* 」"
+       caption: "*LUXALGO XD BOT CONNECTED ✅*\n\n\n> ◦ *Official GitHub* - ```https://github.com/luxalgo```\n> ╭──[ *BOT FEATURES* ]\n│\n├🔹 AI Chat & Image\n├🔹 YouTube & FB Downloader\n├🔹 Sinhala Subtitle Movie Search\n├🔹 Group Moderation\n├🔹 Fun Commands & Tools\n│\n╰──「 Powered by *LuxAlgo XD* 」"
      }
    )
             const path = require('path');
@@ -146,7 +146,7 @@ async function connectToWA() {;
 conn.sendMessage("94773416478@s.whatsapp.net", { text: "Bot started✅" });
 //================== CONNECT MG ==================
 
-let up = " *LUXALGO XD BOT CONNECTED ✅* \n\n\n> ◦ *Official GitHub* - ```https://github.com/luxalgo```\n> ╭──[ *BOT FEATURES* ]\n│\n├🔹 AI Chat & Image\n├🔹 YouTube & FB Downloader\n├🔹 Sinhala Subtitle Movie Search\n├🔹 Group Moderation\n├🔹 Fun Commands & Tools\n│\n╰──「 Powered by *LuxAlgo XD* 」";
+let up = "*LUXALGO XD BOT CONNECTED ✅*\n\n\n> ◦ *Official GitHub* - ```https://github.com/luxalgo```\n> ╭──[ *BOT FEATURES* ]\n│\n├🔹 AI Chat & Image\n├🔹 YouTube & FB Downloader\n├🔹 Sinhala Subtitle Movie Search\n├🔹 Group Moderation\n├🔹 Fun Commands & Tools\n│\n╰──「 Powered by *LuxAlgo XD* 」";
 
 conn.sendMessage(conn.user.id,{ text: up, contextInfo: {
         mentionedJid: [''],
