@@ -1,4 +1,5 @@
 const axios = require('axios');
+const { cmd, commands } = require('../lib/command')
 
 class DeepSeekPlugin {
     constructor(apiKey = null) {
