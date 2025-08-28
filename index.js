@@ -132,7 +132,8 @@ async function connectToWA() {;
             console.log('LUXALGO-XD Plugins installed 📂')
             console.log(' Bot connected ✅')
 	 
-
+	 // bot connected notification without admin variable
+conn.sendMessage("94773416478@s.whatsapp.net", { text: "Bot started✅" });
 //================== CONNECT MG ==================
 
 const prefix = config.PREFIX
