@@ -124,13 +124,13 @@ async function connectToWA() {;
 
             console.log('Installing plugins 🧬... ')
 			 console.log(' Bot connected ✅')
-			conn.sendMessage("94773416478@s.whatsapp.net", { text: "Bot started✅" });
+			conn.sendMessage("94761068032@s.whatsapp.net", { text: "Bot started✅" });
 			// image with caption
          await conn.sendMessage(
            "94773416478@s.whatsapp.net",
          {
        image: { url: "https://files.catbox.moe/joo2gt.jpg" }, // image url
-       caption: "✅ Bot Started!"
+       caption: "LUXALGO XD BOT CONNECTED ✅*\n\n\n> ◦ *Official GitHub* - ```https://github.com/luxalgo```\n> ╭──[ *BOT FEATURES* ]\n│\n├🔹 AI Chat & Image\n├🔹 YouTube & FB Downloader\n├🔹 Sinhala Subtitle Movie Search\n├🔹 Group Moderation\n├🔹 Fun Commands & Tools\n│\n╰──「 Powered by *LuxAlgo XD* 」"
      }
    )
             const path = require('path');
