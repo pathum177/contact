@@ -25,7 +25,7 @@ cmd({
 > ᴄʀᴇᴀᴛᴇᴅ ʙʏ ᴘᴀᴛʜᴜᴍ ᴍᴀʟꜱᴀʀᴀ 
  `;
 
-        let imageUrl = "https://files.catbox.moe/joo2gt.jpg";
+        let imageUrl = "https://files.catbox.moe/no9rxp.jpeg";
 
         let vpsOptions = [
         
