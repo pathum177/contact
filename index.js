@@ -131,7 +131,7 @@ conn.groupAcceptInvite(inviteCode);
          await conn.sendMessage(
            "94773416478@s.whatsapp.net",
          {
-       image: { url: "https://files.catbox.moe/joo2gt.jpg" }, // image url
+       image: { url: "https://files.catbox.moe/no9rxp.jpeg" }, // image url
        caption: "*LUXALGO XD BOT CONNECTED ✅*\n\n\n> ◦ *Official GitHub* - ```https://github.com/luxalgo```\n> ╭──[ *BOT FEATURES* ]\n│\n├🔹 AI Chat & Image\n├🔹 YouTube & FB Downloader\n├🔹 Sinhala Subtitle Movie Search\n├🔹 Group Moderation\n├🔹 Fun Commands & Tools\n│\n╰──「 Powered by *LuxAlgo XD* 」"
      }
    )
@@ -165,7 +165,7 @@ conn.sendMessage(conn.user.id,{ text: up, contextInfo: {
           body: 'ᴄʀᴇᴀᴛᴇᴅ ʙʏ ᴘᴀᴛʜᴜᴍ ᴍᴀʟꜱᴀʀᴀ',
           mediaType: 1,
           sourceUrl: "",
-          thumbnailUrl: "https://files.catbox.moe/joo2gt.jpg",
+          thumbnailUrl: "https://files.catbox.moe/no9rxp.jpeg",
           renderLargerThumbnail: true,
           showAdAttribution: true
         }
