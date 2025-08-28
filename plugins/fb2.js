@@ -16,12 +16,12 @@ async (conn, mek, m, { from, q, reply }) => {
       return conn.sendMessage(from, { text: "❌ Please provide a valid Facebook URL." }, { quoted: mek });
     }
 
-    await conn.sendMessage(from, { react: { text: "💡", key: mek.key } });
+    await conn.sendMessage(from, { react: { text: "📥", key: mek.key } });
 
     const result = await getFBInfo(q);
 
     const captionHeader = `
-*🎥 *LUXALGO FB DOWNLOADER 🎥*
+*🎥 LUXALGO FB DOWNLOADER 🎥*
 
 * 🔗 ᴜʀʟ:* ${q} 
 
