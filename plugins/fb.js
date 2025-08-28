@@ -3,7 +3,7 @@ const {cmd , commands} = require('../lib/command')
 const getFBInfo = require("@xaviabot/fb-downloader");
 
 cmd({
-  pattern: "fb",
+  pattern: "fb2",
   alias: ["fbdl"],
   desc: "Download Facebook videos",
   category: "download",
