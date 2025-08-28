@@ -19,6 +19,7 @@
     "@xaviabot/fb-downloader": "1.0.14",
     "@distube/ytdl-core": "latest",
     "yt-search": "latest",
+    "ytdlp-nodejs": "latest",
     "btch-downloader": "latest",
     "pino": "^9.6.0",
     "pm2": "^5.4.3",
