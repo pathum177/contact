@@ -43,16 +43,6 @@ async (conn, mek, m, { from, q, reply }) => {
         buttonId: `.fbdl audio ${q}`,
         buttonText: { displayText: "🎶 Audio" },
         type: 1
-      },
-      {
-        buttonId: `.alive`,
-        buttonText: { displayText: "✅ Alive" },
-        type: 1
-      },
-      {
-        buttonId: `.ping`,
-        buttonText: { displayText: "📡 Ping" },
-        type: 1
       }
     ]
 
