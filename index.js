@@ -123,6 +123,7 @@ async function connectToWA() {;
         } else if (connection === 'open') {
 
             console.log('Installing plugins 🧬... ')
+			 console.log(' Bot connected ✅')
             const path = require('path');
             fs.readdirSync("./plugins/").forEach((plugin) => {
                 if (path.extname(plugin).toLowerCase() == ".js") {
