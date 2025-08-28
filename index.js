@@ -111,36 +111,61 @@ async function connectToWA() {;
         msgRetryCounterCache
     })
 
-     conn.ev.on('creds.update', saveCreds);
-
-    conn.ev.on('connection.update', (update) => {
-        const { connection, lastDisconnect, qr: qrCode } = update;
-        // Do not show QR code in terminal
+  conn.ev.on('connection.update', async (update) => {
+        const {
+            connection,
+            lastDisconnect
+        } = update
         if (connection === 'close') {
-            const shouldReconnect = (lastDisconnect.error instanceof Boom) && lastDisconnect.error.output.statusCode !== DisconnectReason.loggedOut;
-            console.log('connection closed due to ', lastDisconnect.error, ', reconnecting ', shouldReconnect);
-            if (shouldReconnect) {
-                connectToWhatsApp();
+            if (lastDisconnect.error.output.statusCode !== DisconnectReason.loggedOut) {
+                connectToWA()
             }
         } else if (connection === 'open') {
-            console.log('😼 Installing... ');
-            console.log('Plugins installed successful ✅');
-            console.log('🙃 Starting... ');
-            console.log('👆 Running... ');
-           conn.newsletterFollow("120363183696686259@newsletter") // මේ jid එක මාරු කරන්න එපා මැනිකලාහ් 😇. පහල එකට ඔයාගෙ එක දාන්න
-           conn.newsletterFollow("120363183696686259@newsletter") // මේකට ඔයාගේ channel jid එක දාන්න
-           console.log(" CHANNEL FOLLOW ✅")
-           let up = `Queen UDMODz connected successful ✅\n\nPREFIX: ${prefix}`; // වෙනස් කරන්නහ්
-           conn.sendMessage("94773416478@s.whatsapp.net", { image: { url: `https://i.ibb.co/5xzWmSxn/20250224-094453.png` }, caption: up }) // වෙනස් කරන්නහ්
-            console.log('💙 I`m online now hutto... ');
+
+            console.log('Installing plugins 🧬... ')
+            const path = require('path');
             fs.readdirSync("./plugins/").forEach((plugin) => {
                 if (path.extname(plugin).toLowerCase() == ".js") {
                     require("./plugins/" + plugin);
                 }
             });
-            console.log('Bot connected to whatsapp ✅');
+            console.log('LUXALGO-XD Plugins installed 📂')
+            console.log(' Bot connected ✅')
+	 
+	 // bot connected notification without admin variable
+conn.sendMessage("94773416478@s.whatsapp.net", { text: "Bot started✅" });
+//================== CONNECT MG ==================
+
+const prefix = config.PREFIX
+const mode = config.MODE
+const statusRead = config.AUTO_READ_STATUS
+
+let up = "*LUXALGO XD BOT CONNECTED ✅*\n\n\n> ◦ *Official GitHub* - ```https://github.com/luxalgo```\n> ╭──[ *BOT FEATURES* ]\n│\n├🔹 AI Chat & Image\n├🔹 YouTube & FB Downloader\n├🔹 Sinhala Subtitle Movie Search\n├🔹 Group Moderation\n├🔹 Fun Commands & Tools\n│\n╰──「 Powered by *LuxAlgo XD* 」";
+
+conn.sendMessage(conn.user.id,{ text: up, contextInfo: {
+        mentionedJid: [''],
+        groupMentions: [],
+        //forwardingScore: 999,
+        isForwarded: true,
+        forwardedNewsletterMessageInfo: {
+          newsletterJid: '120363409414874042@newsletter',
+          newsletterName: "LUXALGO-XD",
+          serverMessageId: 999
+        },
+        externalAdReply: { 
+          title: '🧬 LUXALGO BOT 🧬\nSuccessfully Connected !',
+          body: 'ᴄʀᴇᴀᴛᴇᴅ ʙʏ ᴘᴀᴛʜᴜᴍ ᴍᴀʟꜱᴀʀᴀ',
+          mediaType: 1,
+          sourceUrl: "",
+          thumbnailUrl: "https://files.catbox.moe/joo2gt.jpg",
+          renderLargerThumbnail: true,
+          showAdAttribution: true
         }
-    });
+      } 
+})
+
+}
+})
 
 
 conn.ev.on('creds.update', saveCreds)  
