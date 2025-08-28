@@ -1,6 +1,6 @@
 const { cmd } = require('../lib/command')
 const yts = require('yt-search')
-const ytdl = require('ytdl-core')
+const ytdl = require('ytdlp-nodejs')
 const fs = require('fs')
 const ffmpeg = require('fluent-ffmpeg')
 const ffmpegPath = require('ffmpeg-static')
