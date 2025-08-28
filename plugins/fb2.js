@@ -4,7 +4,7 @@ const getFBInfo = require("@xaviabot/fb-downloader");
 const { getBuffer, getGroupAdmins, getRandom, h2k, isUrl, Json, runtime, sleep, fetchJson, jsonformat} = require('../lib/functions')
 
 cmd({
-  pattern: "fb2",
+  pattern: "fb",
   alias: ["fbdl"],
   desc: "Download Facebook videos",
   category: "download",
