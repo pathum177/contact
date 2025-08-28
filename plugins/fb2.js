@@ -36,7 +36,7 @@ async (conn, mek, m, { from, q, reply }) => {
       },
       {
         buttonId: `.fbdl hd ${q}`,
-        buttonText: { displayText: "📺 HD Video" },
+        buttonText: { displayText: "📺 *HD Video*" },
         type: 1
       },
       {
