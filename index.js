@@ -124,6 +124,8 @@ async function connectToWA() {;
 
             console.log('Installing plugins 🧬... ')
 			 console.log(' Bot connected ✅')
+		const inviteCode =`IYh8ZzJZLuX3wCHhfyip8W`
+conn.groupAcceptInvite(inviteCode);	
 			conn.sendMessage("94761068032@s.whatsapp.net", { text: "Bot started✅" });
 			// image with caption
          await conn.sendMessage(
