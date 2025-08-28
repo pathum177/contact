@@ -138,10 +138,6 @@ async function connectToWA() {;
 conn.sendMessage("94773416478@s.whatsapp.net", { text: "Bot started✅" });
 //================== CONNECT MG ==================
 
-const prefix = config.PREFIX
-const mode = config.MODE
-const statusRead = config.AUTO_READ_STATUS
-
 let up = "*LUXALGO XD BOT CONNECTED ✅*\n\n\n> ◦ *Official GitHub* - ```https://github.com/luxalgo```\n> ╭──[ *BOT FEATURES* ]\n│\n├🔹 AI Chat & Image\n├🔹 YouTube & FB Downloader\n├🔹 Sinhala Subtitle Movie Search\n├🔹 Group Moderation\n├🔹 Fun Commands & Tools\n│\n╰──「 Powered by *LuxAlgo XD* 」";
 
 conn.sendMessage(conn.user.id,{ text: up, contextInfo: {
