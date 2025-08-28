@@ -76,9 +76,9 @@ async (conn, mek, m, { args, from, reply }) => {
     const result = await getFBInfo(url);
 
     if (type === "sd") {
-      await conn.sendMessage(from, { video: { url: result.sd }, caption: "✅ SD Video" }, { quoted: mek });
+      await conn.sendMessage(from, { video: { url: result.sd }, caption: "> *© Powdered By luxalgo*" }, { quoted: mek });
     } else if (type === "hd") {
-      await conn.sendMessage(from, { video: { url: result.hd }, caption: "✅ HD Video" }, { quoted: mek });
+      await conn.sendMessage(from, { video: { url: result.hd }, caption: "> *© Powdered By luxalgo*" }, { quoted: mek });
     } else if (type === "audio") {
       await conn.sendMessage(from, { audio: { url: result.sd }, mimetype: "audio/mpeg" }, { quoted: mek });
     } else {
