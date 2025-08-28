@@ -1,6 +1,7 @@
 const config = require('../settings');
 const { cmd } = require('../lib/command');
 const { ytsearch, ytmp3, ytmp4 } = require('@dark-yasiya/yt-dl.js'); 
+const { getBuffer, getGroupAdmins, getRandom, h2k, isUrl, Json, runtime, sleep, fetchJson, jsonformat} = require('../lib/functions')
 //song
 
 cmd({ 
