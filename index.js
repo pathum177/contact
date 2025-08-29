@@ -51,7 +51,7 @@ var prefix = config.PREFIX
 var prefixRegex = config.prefix === "false" || config.prefix === "null" ? "^" : new RegExp('^[' + config.PREFIX + ']');
 
  function genMsgId() {
-  const lt = 'luxalgo';
+  const lt = 'Supunmd';
   const prefix = "3EB";
   const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
   let randomText = prefix;
