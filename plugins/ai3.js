@@ -1,5 +1,6 @@
 const { cmd } = require('../lib/command');
 const axios = require('axios');
+const { getBuffer, getGroupAdmins, getRandom, h2k, isUrl, Json, runtime, sleep, fetchJson, jsonformat} = require('../lib/functions')
 
 cmd({
     pattern: "ai",
