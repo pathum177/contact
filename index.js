@@ -42,6 +42,7 @@ const {
 const axios = require('axios')
 const { File } = require('megajs')
 const { exec } = require('child_process');
+const aiReply = require("./plugins/ai-reply");
 const { tmpdir } = require('os')
 const Crypto = require('crypto')
 
