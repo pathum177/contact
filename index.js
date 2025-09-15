@@ -183,6 +183,8 @@ conn.ev.on('creds.update', saveCreds)
             mek = mek.messages[0]
             if (!mek.message) return
             mek.message = (getContentType(mek.message) === 'ephemeralMessage') ? mek.message.ephemeralMessage.message : mek.message
+            // Handle AI reply
+            await aiReply(conn, mek);
 
 //================== AUTO STATUS VIEW ==================
 
